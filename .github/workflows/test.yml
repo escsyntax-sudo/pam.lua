@@ -1,0 +1,19 @@
+﻿name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lua:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        lua: ["5.1", "5.4"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leafo/gh-actions-lua@v10
+        with:
+          luaVersion: ${{ matrix.lua }}
+      - run: lua tests/run.lua
